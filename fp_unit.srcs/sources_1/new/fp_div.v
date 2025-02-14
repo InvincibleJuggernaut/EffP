@@ -23,7 +23,6 @@
 module fp_div(
     input [31:0] A,
     input [31:0] B,
-    input [3:0] op, //op == 0 => addition; op == 1 => subtraction; op == 2 => multiplication; op == 3 => division
     output reg [31:0] result
 );
 
@@ -34,7 +33,6 @@ module fp_div(
     
     reg [23:0] A_mantissa;
     reg [47:0] B_mantissa;
-    
     reg [7:0] A_exponent;
     reg [7:0] B_exponent;
     
@@ -49,13 +47,10 @@ module fp_div(
     reg [48:0] fractional_remainder;
     reg [47:0] fractional_divisor;
     reg [23:0] fractional_quotient;
-    //reg [23:0] temp_quotient;
     
     reg [71:0] temporary_result;
-    reg [22:0] quotient_remainder;
     
-    reg [6:0] excess;
-    
+    reg [6:0] excess; 
     reg [47:0] mant_a;
     reg [47:0] mant_b;
        
@@ -82,11 +77,6 @@ module fp_div(
        A_mantissa = {1'b1, A_temp[22:0]};
        B_mantissa = {1'b1, B_temp[22:0]};
        
-       
-          //$display("LETSS GOGOGOGOG");
-          //$display("A_temp: %b  ---- B_temp: %b", A_temp, B_temp);
-          //$display("A_man: %b B_man: %b", A_mantissa, B_mantissa);
-          //$display("A_exp: %d B_exp: %d", A_exponent, B_exponent);
            for(i=0; i<24 && (A_mantissa[0] != 1); i=i+1)    begin
                 A_mantissa = A_mantissa >> 1;
            end
@@ -111,20 +101,7 @@ module fp_div(
                 end 
                 mant_a = mant_a << 1; 
            end 
-//           for (i=0; i<25; i=i+1)   begin
-//                remainder = remainder - divisor;
-//                if(remainder[47] == 1)  begin
-//                    remainder = remainder + divisor;
-//                    quotient = quotient<<1;
-//                    divisor = divisor>>1;
-//                end
-//                else    begin
-//                    quotient = (quotient<<1) | 1'b1;
-//                    divisor = divisor>>1;
-//                end
-            
-//            end
-
+           
             fractional_remainder = (49'b0 + remainder << 24);
             fractional_divisor = {(B_mantissa), 24'b0};
             fractional_quotient = 24'b0;
@@ -185,6 +162,6 @@ module fp_div(
      
      result = {result_sign, result_exponent, temporary_result[70:48]};
       
-       end
+  end
     
 endmodule

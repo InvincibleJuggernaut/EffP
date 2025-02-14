@@ -23,7 +23,6 @@
 module fp_mul(
     input [31:0] A,
     input [31:0] B,
-    input [3:0] op, //op == 0 => addition; op == 1 => subtraction; op == 2 => multiplication
     output reg [31:0] result
 );
 
