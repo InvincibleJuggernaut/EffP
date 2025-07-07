@@ -70,7 +70,7 @@ module fp_add_sub(
        A_mantissa = {1'b1, A_temp[22:0]};
        B_mantissa = {1'b1, B_temp[22:0]};
        
-       $display("MANTISSAS A_MANTISSA:%b, B_MANTISSA:%b", A_mantissa, B_mantissa);
+       //$display("MANTISSAS A_MANTISSA:%b, B_MANTISSA:%b", A_mantissa, B_mantissa);
        
        if(A_exponent == B_exponent && A_mantissa == B_mantissa && op == 0)     begin
             result_mantissa = 23'b0;
@@ -91,22 +91,22 @@ module fp_add_sub(
                 if(A_mantissa >= B_mantissa && A[31] == 0)    begin
                     result_sign = 1'b0;
                     temp_result_mantissa = A_mantissa - B_mantissa;
-                    $display("STAGE 1");
+                    //$display("STAGE 1");
                 end
                 else if(A_mantissa >= B_mantissa && A[31] == 1)    begin
                     result_sign = 1'b0; //1'b0;
                     temp_result_mantissa = A_mantissa - B_mantissa;
-                    $display("STAGE 2");
+                    //$display("STAGE 2");
                 end
                 else if(A_mantissa < B_mantissa && A[31] == 1)    begin
                     result_sign = 1'b1;
                     temp_result_mantissa = B_mantissa - A_mantissa;
-                    $display("STAGE 3");
+                    //$display("STAGE 3");
                 end
                 else if(A_mantissa < B_mantissa && A[31] == 0)    begin
                     result_sign = 1'b1;
                     temp_result_mantissa = B_mantissa - A_mantissa;
-                    $display("STAGE 4");
+                    //$display("STAGE 4");
                 end 
 
                 if(temp_result_mantissa[24] == 1)   begin
@@ -133,7 +133,7 @@ module fp_add_sub(
             else if(op == 1)  begin
                                
                temp_result_mantissa = A_mantissa + B_mantissa;
-               $display("STAGE 5");
+               //$display("STAGE 5");
                   if(A[31] == 1)   begin
                        result_sign = 1'b1;
                   end
@@ -175,12 +175,12 @@ module fp_add_sub(
                 if(A_mantissa >= B_mantissa)    begin
                     result_sign = 1'b1;
                     temp_result_mantissa = A_mantissa - B_mantissa;
-                    $display("STAGE 6");
+                    //$display("STAGE 6");
                 end
                 else    begin
                     result_sign = 1'b1;
                     temp_result_mantissa = B_mantissa - A_mantissa;
-                    $display("STAGE 7");
+                    //$display("STAGE 7");
                 end
                  if(temp_result_mantissa[24] == 1)   begin
                       
@@ -204,7 +204,7 @@ module fp_add_sub(
           else if(op == 1)  begin
                              
              temp_result_mantissa = A_mantissa + B_mantissa;
-             $display("STAGE 8");
+             //$display("STAGE 8");
                 if(A[31] == 1)   begin
                      result_sign = 1'b1;
                 end
@@ -230,14 +230,10 @@ module fp_add_sub(
                          result_exponent = temp_larger_exponent-decimal_point;
                      end
          end 
-         
-         
          end
-       
     end
     
-    
-    
+
     else        begin
 
         A_temp = A;
@@ -250,7 +246,7 @@ module fp_add_sub(
            A_mantissa = {1'b1, A_temp[22:0]};
            B_mantissa = {1'b1, B_temp[22:0]};
            
-           $display("MANTISSAS A_MANTISSA:%b, B_MANTISSA:%b", A_mantissa, B_mantissa);
+           //$display("MANTISSAS A_MANTISSA:%b, B_MANTISSA:%b", A_mantissa, B_mantissa);
                   
            if(A_exponent >= B_exponent)  begin
                 Exponent_difference = A_exponent - B_exponent;
@@ -264,8 +260,8 @@ module fp_add_sub(
                 if(op == 0)  begin
                     
                     temp_result_mantissa = A_mantissa + B_mantissa;
-                    $display("TEMP_RES_MANTISSA: %b",temp_result_mantissa); 
-                    $display("STAGE 9");
+                    //$display("TEMP_RES_MANTISSA: %b",temp_result_mantissa); 
+                    //$display("STAGE 9");
                     if(A[31] == 1)   begin
                        result_sign = 1'b1;
                       end
@@ -290,7 +286,7 @@ module fp_add_sub(
                          result_mantissa = temp_result_mantissa[22:0];
                          result_exponent = temp_larger_exponent-decimal_point;
                      end
-                     $display("TAFTER SHIFTING2: %b %b",temp_result_mantissa, decimal_point); 
+                     //$display("TAFTER SHIFTING2: %b %b",temp_result_mantissa, decimal_point); 
                     
                 end 
                 
@@ -299,22 +295,22 @@ module fp_add_sub(
                 if(A_mantissa >= B_mantissa && A[31] == 0)    begin
                     result_sign = 1'b0;
                     temp_result_mantissa = A_mantissa - B_mantissa;
-                    $display("STAGE 10");
+                    //$display("STAGE 10");
                 end
                 else if(A_mantissa >= B_mantissa && A[31] == 1)    begin
                     result_sign = 1'b1;
                     temp_result_mantissa = A_mantissa - B_mantissa;
-                    $display("STAGE 11");
+                    //$display("STAGE 11");
                 end
                 else if(A_mantissa < B_mantissa && A[31] == 1)    begin
                     result_sign = 1'b0;
                     temp_result_mantissa = B_mantissa - A_mantissa;
-                    $display("STAGE 12");
+                    //$display("STAGE 12");
                 end
                 else if(A_mantissa < B_mantissa && A[31] == 0)    begin
                     result_sign = 1'b1;
                     temp_result_mantissa = B_mantissa - A_mantissa;
-                    $display("STAGE 13");
+                    //$display("STAGE 13");
                 end 
 
                    if(temp_result_mantissa[24] == 1)   begin
@@ -348,8 +344,8 @@ module fp_add_sub(
                if(op == 0)  begin
                                     
                     temp_result_mantissa = A_mantissa + B_mantissa;
-                    $display("TEMP_RES_MANTISSA: %b",temp_result_mantissa); 
-                    $display("STAGE 14");
+                    //$display("TEMP_RES_MANTISSA: %b",temp_result_mantissa); 
+                    //$display("STAGE 14");
                     if(A[31] == 1)   begin
                        result_sign = 1'b1;
                       end
@@ -374,7 +370,7 @@ module fp_add_sub(
                          result_exponent = temp_larger_exponent-decimal_point;
                      end
                     
-                    $display("TAFTER SHIFTING2: %b %b",temp_result_mantissa, decimal_point);
+                    //$display("TAFTER SHIFTING2: %b %b",temp_result_mantissa, decimal_point);
                 end 
               
               else if(op == 1)  begin
@@ -382,22 +378,22 @@ module fp_add_sub(
                 if(A_mantissa >= B_mantissa && A[31] == 0)    begin
                       result_sign = 1'b0;
                       temp_result_mantissa = A_mantissa - B_mantissa;
-                      $display("STAGE 15");
+                      //$display("STAGE 15");
                   end
                   else if(A_mantissa >= B_mantissa && A[31] == 1)    begin
                       result_sign = 1'b1;
                       temp_result_mantissa = A_mantissa - B_mantissa;
-                      $display("STAGE 16");
+                      //$display("STAGE 16");
                   end
                   else if(A_mantissa < B_mantissa && A[31] == 1)    begin
                       result_sign = 1'b0;
                       temp_result_mantissa = B_mantissa - A_mantissa;
-                      $display("STAGE 17");
+                      //$display("STAGE 17");
                   end
                   else if(A_mantissa < B_mantissa && A[31] == 0)    begin
                       result_sign = 1'b1;
                       temp_result_mantissa = B_mantissa - A_mantissa;
-                      $display("STAGE 18");
+                      //$display("STAGE 18");
                   end 
                   
                   if(temp_result_mantissa[24] == 1)   begin
@@ -419,10 +415,7 @@ module fp_add_sub(
                                        end
 
                end 
-             
-             
              end
- 
     end
             result = {result_sign, result_exponent, result_mantissa};
     end
