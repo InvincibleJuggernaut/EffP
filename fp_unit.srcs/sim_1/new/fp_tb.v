@@ -19,49 +19,73 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module div_tb();
+
+module fp_tb();
     
-reg [31:0] a;
-reg [31:0] b; 
+reg signed [31:0] a_d;
+reg signed [31:0] a_f; 
+reg [31:0] a_s;
+reg [31:0] b_d;
+reg [31:0] b_f; 
 reg [3:0] operation;
 wire [31:0] op;
 
-fp_div fpd(.A(a), .B(b), .op(operation), .result(op));
+dec_to_fp fpx(.A_decimal(a_d), .A_fractional(a_f), .A_scaling_factor(a_s));
 
-    initial begin 
-    
-    a = 32'hc763dc00; //-58332
-    b = 32'h4b38f47c; //12121212
-    #50; //-207.7969553589796
-    
-    
-    a = 32'h42860000; //67 
-    b = 32'h40e00000; //7
-    #50; 
-    
-    a = 32'h40e00000; //7 
-    b = 32'h40000000; //2
-    #50; 
-    
-        a = 32'h42c80000; //100
-    b = 32'h41200000; //10
-    #50; 
-    
-    a = 32'hd07fffff; //-1.7179868e10
-    b = 32'hdc7fffff; //-2.8823036e17
-    #50; //5.960464400766109e-8
-    
-    a = 32'h43fa0000; //500    
-    b = 32'h3e4ccccd; //0.2
-    #50; 
+initial begin
 
-    a = 32'h43fa0000; //500    
-    b = 32'h3fba0a23; //1.4534344
-    #50; 
-    
-    end
-    
+//Assumption is that both fractional and integral parts are mentioned as 32 bits each
+
+    a_d = -32'd1011001;
+    a_f = 32'd1011001;
+    a_s = 10000000;
+end
+
 endmodule
+
+//module div_tb();
+    
+//reg [31:0] a;
+//reg [31:0] b; 
+//reg [3:0] operation;
+//wire [31:0] op;
+
+//fp_div fpd(.A(a), .B(b), .op(operation), .result(op));
+
+//    initial begin 
+    
+//    a = 32'hc763dc00; //-58332
+//    b = 32'h4b38f47c; //12121212
+//    #50; //-207.7969553589796
+    
+    
+//    a = 32'h42860000; //67 
+//    b = 32'h40e00000; //7
+//    #50; 
+    
+//    a = 32'h40e00000; //7 
+//    b = 32'h40000000; //2
+//    #50; 
+    
+//        a = 32'h42c80000; //100
+//    b = 32'h41200000; //10
+//    #50; 
+    
+//    a = 32'hd07fffff; //-1.7179868e10
+//    b = 32'hdc7fffff; //-2.8823036e17
+//    #50; //5.960464400766109e-8
+    
+//    a = 32'h43fa0000; //500    
+//    b = 32'h3e4ccccd; //0.2
+//    #50; 
+
+//    a = 32'h43fa0000; //500    
+//    b = 32'h3fba0a23; //1.4534344
+//    #50; 
+    
+//    end
+    
+//endmodule
     
 
 //module mul_tb();
